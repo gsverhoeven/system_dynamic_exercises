@@ -98,13 +98,13 @@ The model contains three delays:
 * A delivery delay: it takes `aDelivery_delay` days for orders to arrive at the car dealer
 
 
-We start with a delays set to zero. If the response delay is zero, 
+We start without delays. We set the perceptation delay to zero, and the delivery delay as well. If the response delay is zero, we divide by zero, so we set it to one instead. This means that the full discrepancy is directly ordered, and there is no response delay.
 
 ```{r}
 source("models/business_inventory.R")
 
 # Figure 30
-auxs <- c(aPerception_delay = 0, # days or minimum of 1?
+auxs <- c(aPerception_delay = 0, # days
           aResponse_delay = 1,
           aDelivery_delay = 0)
 
@@ -185,7 +185,7 @@ ggplot(o, aes(x = time, y = sInventory_of_cars_on_the_lot)) +
   ggtitle("Business Inventory example from Meadows") +
   labs(x = "Days", y = "Cars on the lot")
 ```
-The manager then decides to reduces the response delay, making up perceived shortfalls in 2 instead of3 days.
+The manager then decides to reduces the response delay, making up perceived shortfalls in 2 instead of 3 days.
 This makes things worse, as the overreaction increases.
 
 
@@ -210,8 +210,7 @@ ggplot(o, aes(x = time, y = sInventory_of_cars_on_the_lot)) +
 
 ```
 
-She should react LESS rapidly, for example by increasing the response delay from 3 to 6 
-Now the oscillations are damped out.
+She should react LESS rapidly, for example by increasing the response delay from 3 to 6 days. Now the oscillations are damped out.
 
 ```{r}
 source("models/business_inventory.R")
@@ -232,6 +231,7 @@ ggplot(o, aes(x = time, y = sInventory_of_cars_on_the_lot)) +
   labs(x = "Days", y = "Cars on the lot")
 ```
 
+You can use the above code as an example how to implement SD delays in deSolve.
 
 ## Exercise 2: Create your own SD model with at least one delay
 
