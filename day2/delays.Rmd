@@ -1,8 +1,8 @@
 ---
-title: System Dynamic modelling in R day 2: tutorial and exercises
-author: Gertjan Verhoeven 
-date: february 2023
-editor_options: 
+title: 'System Dynamic modelling in R day 2: tutorial and exercises'
+author: "Gertjan Verhoeven"
+date: "february 2023"
+editor_options:
   chunk_output_type: inline
 ---
 
