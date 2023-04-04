@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xmile version="1.0" xmlns="http://docs.oasis-open.org/xmile/ns/XMILE/v1.0" xmlns:isee="http://iseesystems.com/XMILE" xmlns:simlin="https://simlin.com/XMILE/v1.0">
+    <header>
+        <name>one_stock_constrained_capacity</name>
+        <vendor>Ventana</vendor>
+        <product version="0.1.0" lang="en">Simlin</product>
+    </header>
+    <sim_specs method="euler">
+        <start>0</start>
+        <stop>100</stop>
+        <dt>0.25</dt>
+    </sim_specs>
+    <model>
+        <variables>
+            <stock name="sStock">
+                <eqn>100</eqn>
+                <inflow>net_flow</inflow>
+            </stock>
+            <flow name="net_flow">
+                <eqn>sStock * growth_rate</eqn>
+            </flow>
+            <aux name="growth_rate">
+                <eqn>ref_growth_rate * effect_on_growth</eqn>
+            </aux>
+            <aux name="capacity">
+                <eqn>10000</eqn>
+            </aux>
+            <aux name="availability">
+                <eqn>1 - sStock / capacity</eqn>
+            </aux>
+            <aux name="ref_growth_rate">
+                <eqn>0.1</eqn>
+            </aux>
+            <aux name="ref_availability">
+                <eqn>1</eqn>
+            </aux>
+            <aux name="effect_on_growth">
+                <eqn>availability / ref_availability</eqn>
+            </aux>
+        </variables>
+        <views>
+            <view isee:show_pages="false" page_width="800" page_height="600" view_type="stock_flow">
+                <stock name="sStock" x="609.3333740234375" y="253.66668701171875" label_side="bottom"></stock>
+                <flow name="Net_flow" x="485.16668701171875" y="250.33334350585938" label_side="bottom">
+                    <pts>
+                        <pt x="406" y="250.33334350585938"></pt>
+                        <pt x="586.8333740234375" y="250.33334350585938"></pt>
+                    </pts>
+                </flow>
+                <connector angle="-86.31252250715181">
+                    <from>sStock</from>
+                    <to>Net_flow</to>
+                </connector>
+                <aux name="growth_rate" x="478" y="333.66668701171875" label_side="right"></aux>
+                <aux name="capacity" x="674" y="329.66668701171875" label_side="right"></aux>
+                <aux name="availability" x="608" y="378.3333435058594" label_side="right"></aux>
+                <aux name="ref_growth_rate" x="358.66668701171875" y="374.3333435058594" label_side="right"></aux>
+                <aux name="ref_availability" x="504" y="435.66668701171875" label_side="right"></aux>
+                <connector angle="-68.01072610369596">
+                    <from>sStock</from>
+                    <to>availability</to>
+                </connector>
+                <connector angle="-117.53174876446616">
+                    <from>capacity</from>
+                    <to>availability</to>
+                </connector>
+                <aux name="effect_on_growth" x="492.6666564941406" y="383.6666564941406" label_side="right"></aux>
+                <connector angle="-145.4600785229287">
+                    <from>availability</from>
+                    <to>effect_on_growth</to>
+                </connector>
+                <connector angle="143.1359967557066">
+                    <from>ref_availability</from>
+                    <to>effect_on_growth</to>
+                </connector>
+                <connector angle="144.2580264026869">
+                    <from>effect_on_growth</from>
+                    <to>growth_rate</to>
+                </connector>
+                <connector angle="65.04260664236358">
+                    <from>ref_growth_rate</from>
+                    <to>growth_rate</to>
+                </connector>
+                <connector angle="105.32112961240011">
+                    <from>growth_rate</from>
+                    <to>Net_flow</to>
+                </connector>
+            </view>
+        </views>
+    </model>
+</xmile>
