@@ -30,17 +30,13 @@ Examine example code and make exercises 1 and 2 in the [R notebook for day 2](da
 
 Exercise: Make "experienced programmer exercise"
 
-## Day 4
-
-PM
-
-## Day 5
+## Day 4 "inverse modelling"
 
 Fitting a model to data (FME)
 
-## Day 6 alternative approaches
+## Day 5 alternative approaches
 
-agent based modeling vs system dynamics vs microsimulation
+agent based modeling vs system dynamics vs microsimulation (DES, discrete event simulation)
 
 
 
