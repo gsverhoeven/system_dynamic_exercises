@@ -11,8 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-Mathematical simulation models are commonly applied to analyze experimental or environmental data and eventually to acquire predictive capabilities. Typically these models depend on poorly defined, unmeasurable parameters that need to be given a
-value. Fitting a model to data, so-called **inverse modelling**, is often the sole way of finding reasonable values for these parameters. 
+Mathematical simulation models are commonly applied to analyze experimental or environmental data and eventually to acquire predictive capabilities. Typically these models depend on poorly defined, unmeasurable parameters that need to be given a value. Fitting a model to data, so-called **inverse modelling**, is often the sole way of finding reasonable values for these parameters. 
 
 There are many challenges involved in inverse model applications, e.g., 
 
@@ -20,10 +19,7 @@ There are many challenges involved in inverse model applications, e.g.,
 * the estimation of parameter uncertainties and 
 * the quantification of the implications of these uncertainties on model predictions.
 
-The R package **FME** is a modeling package designed to confront a mathematical model with data. 
-A recent high impact application is in a geoscience Nature paper for sensitivity analysis.
-It implements part of the functions from a Fortran simulation environment FEMME (Soetaert,
-deClippele, and Herman 2002).
+The R package **FME** is a modeling package designed to confront a mathematical model with data. A recent high impact application is in a geoscience Nature paper for sensitivity analysis. It implements part of the functions from a Fortran simulation environment FEMME (Soetaert, deClippele, and Herman 2002).
 
 It includes algorithms for 
 * sensitivity analysis (local and global), 
@@ -56,14 +52,12 @@ library(tidyverse)
 
 # Demo HIV model
 
-This is a simple 3-compartment dynamic model from the biomedical sciences that describes the dynamics of
-the HIV virus, responsible for the acquired immunodeficiency syndrome (AIDS)
+This is a simple 3-compartment dynamic model from the biomedical sciences that describes the dynamics of the HIV virus, responsible for the acquired immunodeficiency syndrome (AIDS). The example models the dynamics of the HIV virus in human blood cells (Figure 1).
 
-The example models the dynamics of the HIV virus in human blood cells (Figure 1).
-
-Sources = inflow
-Sinks = outflow
-Compartment, component  = stock (Here: T cells, Infected Cells and Virus particles)
+Some terminology translations:
+* Sources = inflow
+* Sinks = outflow
+* Compartment, component  = stock (Here: T cells, Infected Cells and Virus particles)
 
 ![](hiv_model.png)
 
@@ -165,7 +159,8 @@ Answer:
 We use simulated data as real data to fit the model on.
 Since we simulated the data ourselves, all the parameter values are known, so we can see if we can retrieve them using fitting routines.
 
-The simulated data is simply the model data we simulated above, with noise added on, and measured only at specific points in time. The virions have been counted at high frequency, but with measurement error.
+The simulated data is simply the model data we simulated above, with noise added on, and measured only at specific points in time. 
+The virions have been counted at high frequency, but with measurement error.
 The T cells are recorded at lower frequency (4-days intervals), but with a higher precision.
 
 ```{r}
@@ -264,6 +259,7 @@ HIVcost(pars)$model
 ```{r}
 HIVcost(pars)$var
 ```
+
 # Exercise 3: explore effect of two parameters on model fit
 
 a) Vary beta and rho +/- 10% around their optimal values, and plot the model cost in a two-dimensional plot, for example as a heatmap.
@@ -391,7 +387,7 @@ Does it still work? Note that the `Pars` needs to be a named vector of length 5.
 
 # MCMC to get the full set of plausible parameter values
 
-To get proper uncertainty for the complete set of parameters, given a dynamic model that has no analytical solution, we can take a Bayesian approach. We assume weak priors for all parameters, let the likelihood of a set of parameters (i.e. how likely is it to observe the data, given the model and the set of parameters) be proportional to the model cost function, and then we have a setup where we can use Bayesian methods to efficiently sample from the posterior.
+To get proper uncertainty for the complete set of parameters, given a dynamic model that has no analytical solution, we can take a Bayesian approach. We assume weak or flat priors for all parameters, let the likelihood of a set of parameters (i.e. how likely is it to observe the data, given the model and the set of parameters) be proportional to the model cost function, and then we have a setup where we can use Bayesian methods to sample from the posterior.
 
 Bayesian methods can be used to derive the data-dependent probability distribution of the parameters. Function `modMCMC()` implements a Markov Chain Monte Carlo (MCMC) method that uses the delayed rejection and adaptive Metropolis (DRAM) procedure (Haario et al. 2006; Laine 2008). 
 
